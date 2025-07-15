@@ -6,6 +6,10 @@ import { useSession } from "@node_modules/next-auth/react";
 
 const PromptCard = ({post, handleTagClick, handleEdit, handleDelete}) => {
 
+
+  const {data:session} = useSession();
+  const pathName = usePathname();
+  const router = useRouter();
   const [copied, setCopied] = useState("");
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -23,7 +27,7 @@ const PromptCard = ({post, handleTagClick, handleEdit, handleDelete}) => {
           width={40}
           height={40}
           className="rounded-full object-contain"
-        />
+        />  
         <div className="flex flex-col">
           <h3 className="font-semibold text-gray-900">{post.creator.username}</h3>
           <p className="text-sm  text-gray-500">{post.creator.email}</p>
@@ -42,6 +46,12 @@ const PromptCard = ({post, handleTagClick, handleEdit, handleDelete}) => {
       <p className="text-sm blue_gradient cursor-pointer"
       onClick={() => handleTagClick && handleTagClick(post.tag)}
       >{post.tag}</p>
+      {session?.user.id === post.creator._id && pathName === '/profile' && (
+        <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+          <p className="text-sm green_gradient cursor-pointer hover:opacity-45" onClick={handleEdit}>Edit</p>
+          <p className="text-sm orange_gradient cursor-pointer hover:opacity-45" onClick={handleDelete}>Delete</p>
+        </div>
+      )}
     </div>
   )
 }
