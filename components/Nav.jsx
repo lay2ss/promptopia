@@ -29,7 +29,7 @@ const Nav = () => {
         height={30}
         className="object-contain"
         />
-        <p className="logo_text"> Promptopia </p>
+        <p className="logo_text font-figtree"> Promptopia </p>
         </Link>
 
         <div className="sm:flex hidden">
@@ -85,7 +85,7 @@ const Nav = () => {
                             My Profile
                         </Link>
                         <Link href="/create-prompt"
-                        className="dropdown_list"
+                        className="dropdown_list font-inter"
                         onClick={() => setToggleDropdown(false)}
                         >
                             Create Post
@@ -95,7 +95,7 @@ const Nav = () => {
                             setToggleDropdown(false);
                             signOut();
                         }}
-                        className="mt-5 w-full black_btn"
+                        className="mt-5 w-full black_btn font-inter"
                         >
                             Sign Out 
                         </button>
@@ -109,7 +109,7 @@ const Nav = () => {
                     <button type="button"
                     key={provider.name}
                     onClick={() => signIn(provider.id)}
-                    className="black_btn">
+                    className="black_btn font-inter">
                         Sign In
                     </button>
                 )))}
