@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSession } from "@node_modules/next-auth/react";
 import Image from "@node_modules/next/image";
 import { useRouter, useSearchParams } from "@node_modules/next/navigation";
@@ -88,14 +88,16 @@ const EditPrompt = () => {
     else
     
   return (
-    <Form
+    <Suspense fallback={<div className="desc font-figtree">Loading prompt...</div>}>
+        <Form
         type="Edit"
         post={post}
         setPost={setPost}
         submitting={submitting}
         handleSubmit={UpdatePrompt}
-
-    />
+        />
+    </Suspense>
+ 
   )
 }
 
