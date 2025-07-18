@@ -7,6 +7,7 @@ import Form from "@components/Form";
 
 const EditPrompt = () => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
     const {data:session} = useSession();
     const [submitting, setSubmitting] = useState(false);
     const searchParams = useSearchParams();
@@ -57,21 +58,34 @@ const EditPrompt = () => {
             setSubmitting(false);
         }
     }
+
+    useEffect(() => {
+        const checkSession = async () => {
+        await new Promise(resolve => setTimeout(resolve, 250)); 
+        setIsLoading(false);
+        };
+        checkSession();
+    }, []);
+
+    if (isLoading) {
+        return null; 
+    }
+
     if(!session?.user.id){
         return (<div className="flex flex-center flex-col">
         <h1 className="head_text text-center"><span className="orange_gradient">Sign In to start creating prompts</span></h1>
             <Image 
-                    src="/assets/images/sign-in.svg"
-                    alt="sign in"
-                    width={450}
-                    height={450}
-                    className="object-contain mt-20"
-                    /> 
+                src="/assets/images/sign-in.svg"
+                alt="sign in"
+                width={450}
+                height={450}
+                className="object-contain mt-20"
+            /> 
         </div>
         )  
-    } 
+     } 
 
- else
+    else
     
   return (
     <Form

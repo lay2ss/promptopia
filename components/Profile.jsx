@@ -1,9 +1,24 @@
+"use client"
 import PromptCard from "./PromptCard";
 import { useSession } from "@node_modules/next-auth/react";
 import Image from "@node_modules/next/image";
+import { useState, useEffect } from "react";
 
 const Profile = ({name, desc, data, handleEdit, handleDelete}) => {
   const {data:session} = useSession();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkSession = async () => {
+      await new Promise(resolve => setTimeout(resolve, 250)); 
+      setIsLoading(false);
+    };
+    checkSession();
+  }, []);
+
+  if (isLoading) {
+    return null; 
+  }
 
   if(!session?.user.id){
     return (<div className="flex flex-center flex-col">

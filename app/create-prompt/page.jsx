@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "@node_modules/next-auth/react";
 import { useRouter } from "@node_modules/next/navigation";
 import Image from "@node_modules/next/image";
@@ -7,6 +7,7 @@ import Form from "@components/Form";
 
 const CreatePrompt = () => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
     const {data: session} = useSession();
     const [submitting, setSubmitting] = useState(false);
     const [post, setPost] = useState({
@@ -41,6 +42,19 @@ const CreatePrompt = () => {
             setSubmitting(false);
         }
     }
+
+    useEffect(() => {
+        const checkSession = async () => {
+        await new Promise(resolve => setTimeout(resolve, 250)); 
+        setIsLoading(false);
+        };
+        checkSession();
+    }, []);
+
+    if (isLoading) {
+        return null; 
+    }
+
     if(!session?.user.id){
         return (<div className="flex flex-center flex-col">
           <h1 className="head_text text-center"><span className="orange_gradient">Sign In to start creating prompts</span></h1>
