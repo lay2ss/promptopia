@@ -6,7 +6,7 @@ Promptopia is an open-source full-stack web application that allows users to **d
 
 ## 🚀 Live Demo
 
-👉 [Visit Promptopia Live](https://promptopia-chri-bmqin21gh-lais-projects-3a989d2f.vercel.app/)
+👉 [Visit Promptopia Live](https://promptopia-swart.vercel.app/)
 
 ## 🛠️ Tech Stack
 
