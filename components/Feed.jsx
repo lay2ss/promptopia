@@ -11,13 +11,17 @@ const feed = () => {
   };
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch('/api/prompt');
-      const data = await response.json();
+  const fetchPosts = async () => {
+    const response = await fetch('/api/prompt');
+    const data = await response.json();
 
-      setPosts(data);
-    }
+    setPosts(data);
+  }
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  useEffect(() => {
     fetchPosts();
   }, [searchText]);
 
@@ -26,7 +30,7 @@ const feed = () => {
 
     const delayDebounce = setTimeout(() => {
       const fetchPosts = async () => {
-        const response = await fetch(`/api/search?q=${searchText}`);
+        const response = await fetch(`/api/search?q=${encodeURIComponent(searchText)}`);
         const data = await response.json();
         setPosts(data);
       };
@@ -39,13 +43,17 @@ const feed = () => {
   const PromptCardList = ({data, handleTagClick}) => {
     return (
       <div className="mt-16 prompt_layout">
-        { data.map((post) => (
-          <PromptCard 
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-          />
-        ))}
+        {Array.isArray(data) ? (
+          data.map(post => <PromptCard
+            key={post._id}
+            post={post}
+            handleTagClick={handleTagClick}
+            />)
+        ) : (
+          <div>
+            <p className="text-gray-700 font-inter">No result found</p>
+          </div>
+        )}
       </div>
     )
   };
@@ -67,7 +75,7 @@ const feed = () => {
       handleTagClick={(tag) => {
         const fetchPosts = async () => {
         setSearchText(tag);
-        const response = await fetch(`/api/search?q=${tag}`);
+        const response = await fetch(`/api/search?q=${encodeURIComponent(tag)}`);
         const data = await response.json();
         setPosts(data);
       };

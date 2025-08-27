@@ -5,15 +5,14 @@ export const GET = async (request, {params}) => {
     try{ 
         await connectToDB();
         const prompt = await Prompt.findById(params.id).populate('creator');
-        if(!prompt) return new Response("Prompt not found", {status: 404});
+        if(!prompt) return new Response(JSON.stringify({ error: "Prompt not found" }), {status: 404});
 
         return new Response(JSON.stringify(prompt), 
         {status:200}
         )
     } catch (error) {
-        return new Response("Failed to fetch all prompts", 
-            {status: 500}
-        )
+        return new Response(JSON.stringify({ error: "Failed to fetch all prompts" }), 
+        {status: 500,});
     }
 }
 
@@ -23,7 +22,7 @@ export const PATCH = async (request, {params}) => {
     try {
         await connectToDB();
         const existingPrompt = await Prompt.findById(params.id);
-        if(!existingPrompt) return new Response("Prompt not found", {status: 404});
+        if(!existingPrompt) return new Response(JSON.stringify({ error: "Prompt not found" }), {status: 404});
 
         existingPrompt.prompt = prompt;
         existingPrompt.tag = tag;
@@ -33,9 +32,8 @@ export const PATCH = async (request, {params}) => {
         {status:200}
     )
     } catch (error){
-         return new Response("Failed to update prompt", 
-            {status: 500}
-        )
+        return new Response(JSON.stringify({ error: "Failed to update prompt" }), 
+        {status: 500,});
     }
 }
 
@@ -43,8 +41,8 @@ export const DELETE = async (request, {params}) => {
     try {
         await connectToDB();
         await Prompt.findByIdAndDelete(params.id);
-        return new Response("Prompt deleted successfully", {status: 200})
+        return new Response(JSON.stringify({ error: "Prompt deleted successfully" }), {status: 200})
     } catch (error) {
-        return new Response("Failed o delete prompt", {status: 500})
+        return new Response(JSON.stringify({ error: "Failed to delete prompt" }), {status: 500,});
     }
 }

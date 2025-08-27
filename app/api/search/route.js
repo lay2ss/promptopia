@@ -4,7 +4,7 @@ import User from "@models/user";
 
 export const GET = async (request) => {
     const { searchParams } = new URL(request.url);
-    const q = searchParams.get("q");
+    const q = searchParams.get('q')?.trim();
 
     if(!q){
         return new Response(JSON.stringify({ error: "Search term is required." }), {
