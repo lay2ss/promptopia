@@ -42,16 +42,18 @@ const feed = () => {
 
   const PromptCardList = ({data, handleTagClick}) => {
     return (
-      <div className="mt-16 prompt_layout">
+      <div>
         {Array.isArray(data) ? (
-          data.map(post => <PromptCard
-            key={post._id}
-            post={post}
-            handleTagClick={handleTagClick}
-            />)
+          <div className="mt-16 prompt_layout">
+            {data.map(post => <PromptCard
+              key={post._id}
+              post={post}
+              handleTagClick={handleTagClick}
+              />)}
+          </div>
         ) : (
           <div>
-            <p className="text-gray-700 font-inter">No result found</p>
+            <p className="text-gray-700 font-inter mt-16">No result found</p>
           </div>
         )}
       </div>

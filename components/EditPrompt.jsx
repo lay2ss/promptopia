@@ -4,6 +4,7 @@ import { useSession } from "@node_modules/next-auth/react";
 import Image from "@node_modules/next/image";
 import { useRouter, useSearchParams } from "@node_modules/next/navigation";
 import Form from "@components/Form";
+import LoginGate from "./LoginGate";
 
 const EditPrompt = () => {
     const router = useRouter();
@@ -72,18 +73,8 @@ const EditPrompt = () => {
     }
 
     if(!session?.user.id){
-        return (<div className="flex flex-center flex-col">
-        <h1 className="head_text text-center"><span className="orange_gradient">Sign In to start creating prompts</span></h1>
-            <Image 
-                src="/assets/images/sign-in.svg"
-                alt="sign in"
-                width={450}
-                height={450}
-                className="object-contain mt-20"
-            /> 
-        </div>
-        )  
-     } 
+        return (<LoginGate/>)  
+    } 
 
     else
     
