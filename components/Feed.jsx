@@ -53,7 +53,7 @@ const feed = () => {
           </div>
         ) : (
           <div>
-            <p className="text-gray-700 font-inter mt-16">No result found</p>
+            <p className="text-gray-700 font-inter mt-16">No result found, try to search for something</p>
           </div>
         )}
       </div>
